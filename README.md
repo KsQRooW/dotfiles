@@ -1,7 +1,8 @@
 # Commands
-- Создания переменной окружения
+- Создание переменных окружения
   ```powershell
   [System.Environment]::SetEnvironmentVariable("DOTFILES", "D:\dotfiles", "User")
+  [System.Environment]::SetEnvironmentVariable("XDG_CONFIG_HOME", "D:\dotfiles\neovim", "User")
   ```
 
 # PowerShell
