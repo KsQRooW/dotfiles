@@ -1,3 +1,5 @@
-require('base/tabs')
-require('base/rows')
+require('config.lazy')  -- plugins installing here
+
+require('base/settings')
+require('base/keymaps')
 
