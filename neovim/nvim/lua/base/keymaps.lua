@@ -2,11 +2,13 @@ vim.g.mapleader = " " -- space and after command
 
 local map = vim.keymap.set
 local telescope = require("telescope.builtin")
+local git = require("gitsigns")
 
 -- telescope
 map("n", "<leader>f", telescope.find_files, { desc = "Find Files" })
-map("n", "<leader>g", telescope.live_grep, { desc = "Find by Grep" })
+map("n", "<leader>gg", telescope.live_grep, { desc = "Find by Grep" })
 map("n", "<leader>b", telescope.buffers, { desc = "Find Buffers" })
+map("n", "<leader>gs", telescope.git_status, { desc = "Find Git Status Files" })
 
 -- neotree
 map("n", "<leader>n", "<cmd>Neotree toggle<CR>", { desc = "Toggle Neo-tree" })
@@ -49,3 +51,19 @@ map("n", "<leader>tt", "<cmd>TodoTelescope<CR>")
 
 -- code action
 map("n", "<leader>.", vim.lsp.buf.code_action, { desc = "LSP: Code Action" })
+
+-- go to function definition
+map("n", "<leader>gd", "<cmd>Telescope lsp_definitions<CR>")
+
+-- go to function declaration
+map("n", "<leader>gr", "<cmd>Telescope lsp_references<CR>")
+
+-- git (un)stage current/selected hunk
+map("n", "<leader>hs", git.stage_hunk)
+map("v", "<leader>hs", function()
+	git.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+end)
+
+-- git stage/unstage file
+map("n", "<leader>hS", git.stage_buffer)
+map("n", "<leader>hR", git.reset_buffer_index)
