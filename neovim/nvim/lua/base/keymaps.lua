@@ -55,7 +55,7 @@ map("n", "<leader>.", vim.lsp.buf.code_action, { desc = "LSP: Code Action" })
 -- go to function definition
 map("n", "<leader>gd", "<cmd>Telescope lsp_definitions<CR>")
 
--- go to function declaration
+-- go to function references
 map("n", "<leader>gr", "<cmd>Telescope lsp_references<CR>")
 
 -- git (un)stage current/selected hunk
