@@ -41,7 +41,7 @@ map({ "n", "v" }, "<leader>d", [["_d]])
 map("n", "<leader>e", vim.diagnostic.open_float)
 
 -- show all errors
-map("n", "<leader>ae", "<cmd>Telescope diagnostics<CR>")
+map("n", "<leader>xx", "<cmd>Telescope diagnostics severity=ERROR<CR>")
 
 -- changing a word throughout the file
 map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
