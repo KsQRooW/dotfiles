@@ -17,6 +17,8 @@
   - nodejs - `winget install OpenJS.NodeJS`
 - peek.nvim
   - `winget install --id=DenoLand.Deno  -e`
+- lazygit.nvim
+  - `winget install -e --id=JesseDuffield.lazygit`
 
 # PowerShell
 
