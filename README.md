@@ -8,7 +8,8 @@
 
 # Git
 
-- Link to hooks: `git config --global core.hooksPath "D:/dotfiles/git/hooks"`
+- link to hooks:
+  - `git config --global core.hooksPath "D:/dotfiles/git/hooks"`
 
 # NeoVim
 
