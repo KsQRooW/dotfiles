@@ -17,11 +17,11 @@ return {
 						"json",
 						"yaml",
 						"markdown",
-						"dart",
 					},
 				}),
 
 				null_ls.builtins.formatting.stylua,
+				null_ls.builtins.formatting.dart_format,
 			},
 
 			-- autoformat on save
