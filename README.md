@@ -6,6 +6,10 @@
   [System.Environment]::SetEnvironmentVariable("XDG_CONFIG_HOME", "D:\dotfiles\neovim", "User")
   ```
 
+# Git
+
+- Link to hooks: `git config --global core.hooksPath "D:/dotfiles/git/hooks"`
+
 # NeoVim
 
 - nvim-treesitter
