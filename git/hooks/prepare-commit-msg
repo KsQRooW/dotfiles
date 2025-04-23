@@ -4,6 +4,8 @@
 # Crossplatform prepare-commit-msg for Conventional Commits #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
+NO_TASK_FLAG="--"
+
 # issue id regex (something like JIRA-123, GH-34, PROJECT-1)
 ISSUE_ID_REGEX="[A-Za-z0-9_.]+-[0-9]+"
 REFS_LINE_REGEX="^Refs:[[:space:]]*($ISSUE_ID_REGEX,?[[:space:]]*)+$"
@@ -59,12 +61,20 @@ get_remote_special_char() {
 }
 
 branch_name=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)
-issue_id=$(echo "$branch_name" | grep -oE "$ISSUE_ID_REGEX" | head -n1)
 
 commit_message=$(cat "$1")
 first_line=$(echo "$commit_message" | head -n1)
 refs_line=$(echo "$commit_message" | tail -n +2 | grep -E "$REFS_LINE_REGEX" | tail -n 1)
 other_lines=$(echo "$commit_message" | tail -n +2 |  sed -E "/$REFS_LINE_REGEX/d")
+
+no_task_filler=$(echo $first_line | grep -oE "^.*${NO_TASK_FLAG}[[:space:]]*$")
+
+if [ -z "$no_task_filler" ]; then
+  issue_id=$(echo "$branch_name" | grep -oE "$ISSUE_ID_REGEX" | head -n1)
+else 
+  first_line=$(echo "$first_line" | sed -E "s/[[:space:]]*--[[:space:]]* //")
+  issue_id=""
+fi
 
 # first line is "Conventional Commits" like message?
 if echo "$first_line" | grep -qE "^(${ALL_EMOJIS}[[:space:]]*)?${CONVENTIONAL_PART_REGEX}"; then
