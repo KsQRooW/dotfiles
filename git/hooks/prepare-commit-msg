@@ -5,7 +5,8 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # issue id regex (something like JIRA-123, GH-34, PROJECT-1)
-ISSUE_ID_REGEX="[A-Za-z0-9_.-]+-[0-9]+"
+ISSUE_ID_REGEX="[A-Za-z0-9_.]+-[0-9]+"
+REFS_LINE_REGEX="^Refs:[[:space:]]*($ISSUE_ID_REGEX,?[[:space:]]*)+$"
 CONVENTIONAL_PART_REGEX="([a-z]+)(!?)(\([^)]*\))?:"
 
 # emojis for commits
@@ -40,26 +41,44 @@ get_emoji() {
     esac
 }
 
+get_remote_special_char() {
+    case "$1" in
+        stash*) echo "" ;;
+        bitbucket*) echo "" ;;
+        gitlab*) echo "#" ;;
+        ci*) echo "$EMOJI_ci" ;;
+        refactor*) echo "$EMOJI_refactor" ;;
+        perf*) echo "$EMOJI_perf" ;;
+        docs*) echo "$EMOJI_docs" ;;
+        build*) echo "$EMOJI_build" ;;
+        style*) echo "$EMOJI_style" ;;
+        test*) echo "$EMOJI_test" ;;
+        revert*) echo "$EMOJI_revert" ;;
+        *) echo "" ;;
+    esac
+}
+
 branch_name=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)
 issue_id=$(echo "$branch_name" | grep -oE "$ISSUE_ID_REGEX" | head -n1)
+
 commit_message=$(cat "$1")
-
 first_line=$(echo "$commit_message" | head -n1)
-other_lines=$(echo "$commit_message" | tail -n +2)
+refs_line=$(echo "$commit_message" | tail -n +2 | grep -E "$REFS_LINE_REGEX" | tail -n 1)
+other_lines=$(echo "$commit_message" | tail -n +2 |  sed -E "/$REFS_LINE_REGEX/d")
 
-# commit message is "Conventional Commits" like message?
-if echo "$commit_message" | grep -qE "^($ALL_EMOJIS )?${CONVENTIONAL_PART_REGEX}"; then
+# first line is "Conventional Commits" like message?
+if echo "$first_line" | grep -qE "^(${ALL_EMOJIS}[[:space:]]*)?${CONVENTIONAL_PART_REGEX}"; then
 
     # checking that the emoji already exists
-    current_emoji=$(echo "$commit_message" | grep -oE "^$ALL_EMOJIS " | tr -d ' ')
+    current_emoji=$(echo "$commit_message" | grep -oE "^$ALL_EMOJIS")
 
     # parsing the commit message
     if [ -n "$current_emoji" ]; then
-        temp_message=$(echo "$first_line" | sed -E "s/^$current_emoji //")
-        commit_type=$(echo "$temp_message" | sed -E "s/^${CONVENTIONAL_PART_REGEX}.*/\1/")
-        breaking_mark=$(echo "$temp_message" | sed -E "s/^${CONVENTIONAL_PART_REGEX}.*/\2/")
-        scope=$(echo "$temp_message" | sed -E "s/^${CONVENTIONAL_PART_REGEX}.*/\3/" | tr -d '()')
-        description=$(echo "$temp_message" | sed -E "s/^${CONVENTIONAL_PART_REGEX}[[:space:]]*//")
+        no_emoji_first_line=$(echo "$first_line" | sed -E "s/^$current_emoji //")
+        commit_type=$(echo "$no_emoji_first_line" | sed -E "s/^${CONVENTIONAL_PART_REGEX}.*/\1/")
+        breaking_mark=$(echo "$no_emoji_first_line" | sed -E "s/^${CONVENTIONAL_PART_REGEX}.*/\2/")
+        scope=$(echo "$no_emoji_first_line" | sed -E "s/^${CONVENTIONAL_PART_REGEX}.*/\3/" | tr -d '()')
+        description=$(echo "$no_emoji_first_line" | sed -E "s/^${CONVENTIONAL_PART_REGEX}[[:space:]]*//")
         emoji=$current_emoji
     else
         commit_type=$(echo "$first_line" | sed -E "s/^${CONVENTIONAL_PART_REGEX}.*/\1/")
@@ -69,43 +88,82 @@ if echo "$commit_message" | grep -qE "^($ALL_EMOJIS )?${CONVENTIONAL_PART_REGEX}
         emoji=$(get_emoji "$commit_type")
     fi
 
-    # checking that issue ID already exists in the scope
-    existing_issue_in_scope=$(echo "$scope" | grep -oE "$ISSUE_ID_REGEX" | head -n1)
-
     # building new commit message from parts
     if [ -n "$scope" ]; then
-        if [ -n "$existing_issue_in_scope" ]; then
-            # if the issue ID already exists in the scope, then leave it as is
-            new_message="$emoji $commit_type$breaking_mark($scope): $description"
-        elif [ -n "$issue_id" ]; then
-            # adding the issue ID to the existing scope
-            new_message="$emoji $commit_type$breaking_mark($scope, $issue_id): $description"
-        else
-            # if issue ID doesn't exist - just adding an emoji
-            new_message="$emoji $commit_type$breaking_mark($scope): $description"
-        fi
+        first_line="$emoji $commit_type$breaking_mark($scope): $description"
     else
-        if [ -n "$issue_id" ]; then
-            # if no scope - just adding the issue ID
-            new_message="$emoji $commit_type$breaking_mark($issue_id): $description"
-        else
-            # if no issue ID - just adding the emoji
-            new_message="$emoji $commit_type$breaking_mark: $description"
-        fi
+        first_line="$emoji $commit_type$breaking_mark: $description"
     fi
 
-    # combine new first line with the other lines
-    if [ -z "$other_lines" ]; then
-        echo "$new_message" > "$1"
-    else
-        printf "%s\n%s" "$new_message" "$other_lines" > "$1"
-    fi
+    # checking that issue ID already exists in the scope
+    issue_already_in_refs=$(echo "$refs_line" | grep -oE "$issue_id" | head -n1)
 
-elif [ -n "$issue_id" ] && ! echo "$commit_message" | grep -qE "^$issue_id:"; then
-    # for Non-Conventional Commits adding issue ID only if it is not present at the beginning
-    if [ -z "$other_lines" ]; then
-        echo "$issue_id: $first_line" > "$1"
+    if [ -n "$issue_already_in_refs" ]; then
+        if [ -n "$other_lines" ]; then
+            printf "%s\n%s\n\n%s" "$first_line" "$other_lines" "$refs_line" | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}' > "$1"
+        else
+            printf "%s\n\n%s" "$first_line" "$refs_line" | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}' > "$1"
+        fi
     else
-        printf "%s\n%s" "$issue_id: $first_line" "$other_lines" > "$1"
+        if [ -n "$refs_line" ]; then
+            if [ -n "$issue_id" ]; then
+                refs_line="$refs_line, $issue_id"
+            fi
+            if [ -n "$other_lines" ]; then
+                printf "%s\n%s\n\n%s" "$first_line" "$other_lines" "$refs_line" | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}' > "$1"
+            else
+                printf "%s\n\n%s" "$first_line" "$refs_line" | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}' > "$1"
+            fi
+        else
+            if [ -n "$issue_id" ]; then
+                refs_line="Refs: $issue_id"
+            fi
+            if [ -n "$other_lines" ]; then
+                printf "%s\n%s\n\n%s" "$first_line" "$other_lines" "$refs_line" | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}' > "$1"
+            else
+                printf "%s\n\n%s" "$first_line" "$refs_line" | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}' > "$1"
+            fi
+        fi
+    fi
+elif [ -n "$issue_id" ]; then
+    # checking that issue ID already exists in the scope
+    issue_already_in_refs=$(echo "$refs_line" | grep -oE "$issue_id" | head -n1)
+
+    if [ -n "$issue_already_in_refs" ]; then
+        if [ -n "$other_lines" ]; then
+            printf "%s\n%s\n\n%s" "$first_line" "$other_lines" "$refs_line" | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}' > "$1"
+        else
+            printf "%s\n\n%s" "$first_line" "$refs_line" | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}' > "$1"
+        fi
+    else
+        if [ -n "$refs_line" ]; then
+            refs_line="$refs_line, $issue_id"
+            if [ -n "$other_lines" ]; then
+                printf "%s\n%s\n\n%s" "$first_line" "$other_lines" "$refs_line" | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}' > "$1"
+            else
+                printf "%s\n\n%s" "$first_line" "$refs_line" | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}' > "$1"
+            fi
+        else
+            refs_line="Refs: $issue_id"
+            if [ -n "$other_lines" ]; then
+                printf "%s\n%s\n\n%s" "$first_line" "$other_lines" "$refs_line" | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}' > "$1"
+            else
+                printf "%s\n\n%s" "$first_line" "$refs_line" | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}' > "$1"
+            fi
+        fi
+    fi
+else
+    if [ -n "$refs_line" ]; then
+        if [ -n "$other_lines" ]; then
+            printf "%s\n%s\n\n%s" "$first_line" "$other_lines" "$refs_line" | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}' > "$1"
+        else
+            printf "%s\n\n%s" "$first_line" "$refs_line" | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}' > "$1"
+        fi
+    else
+        if [ -n "$other_lines" ]; then
+            printf "%s\n%s" "$first_line" "$other_lines" | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}' > "$1"
+        else
+            printf "%s" "$first_line" | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}' > "$1"
+        fi
     fi
 fi
