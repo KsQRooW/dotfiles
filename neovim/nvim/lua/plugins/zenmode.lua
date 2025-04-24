@@ -6,8 +6,6 @@ return {
 			buffers = {
 				scratchPad = {
 					enabled = true,
-					-- set to `nil` to default
-					-- to current working directory
 					location = nil,
 				},
 				bo = {
