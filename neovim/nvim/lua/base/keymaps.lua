@@ -82,3 +82,6 @@ end)
 
 -- lazygit
 map("n", "<leader>lg", "<cmd>LazyGit<cr>")
+
+-- zen mode
+map("n", "<leader>zm", "<cmd>NoNeckPain<cr>")
