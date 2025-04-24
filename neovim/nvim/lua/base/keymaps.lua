@@ -68,5 +68,17 @@ end)
 map("n", "<leader>hS", git.stage_buffer)
 map("n", "<leader>hR", git.reset_buffer_index)
 
+-- git reset hunk
+map("n", "<leader>hr", git.reset_hunk)
+map("v", "<leader>hr", function()
+	local gs = package.loaded.gitsigns
+	local start_line = vim.fn.line("v")
+	local end_line = vim.fn.line(".")
+	if start_line > end_line then
+		start_line, end_line = end_line, start_line
+	end
+	gs.reset_hunk({ start_line, end_line })
+end)
+
 -- lazygit
 map("n", "<leader>lg", "<cmd>LazyGit<cr>")
