@@ -1,3 +1,4 @@
 gui:
+  showFileTree: false
   language: "en"
 disableStartupPopups: true

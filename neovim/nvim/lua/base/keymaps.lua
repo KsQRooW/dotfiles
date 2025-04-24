@@ -67,3 +67,6 @@ end)
 -- git stage/unstage file
 map("n", "<leader>hS", git.stage_buffer)
 map("n", "<leader>hR", git.reset_buffer_index)
+
+-- lazygit
+map("n", "<leader>lg", "<cmd>LazyGit<cr>")
