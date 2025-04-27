@@ -85,3 +85,6 @@ map("n", "<leader>lg", "<cmd>LazyGit<cr>")
 
 -- zen mode
 map("n", "<leader>zm", "<cmd>NoNeckPain<cr>")
+
+-- format code
+map("n", "<leader><leader>", vim.lsp.buf.format)
