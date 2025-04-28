@@ -6,7 +6,7 @@ return {
 			TODO = { color = "todo", alt = { "todo" } },
 		},
 		highlight = {
-			multiline = true,
+			multiline = false,
 			multiline_pattern = "^.",
 			multiline_context = 10,
 			before = "",
