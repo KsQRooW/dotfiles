@@ -1,3 +1,7 @@
+# TODO
+
+-
+
 # Commands
 
 - Создание переменных окружения
@@ -20,8 +24,6 @@
   - `winget install BurntSushi.ripgrep.MSVC`
 - mason.nvim and some lsp stuff
   - nodejs - `winget install OpenJS.NodeJS`
-- peek.nvim
-  - `winget install --id=DenoLand.Deno  -e`
 - lazygit.nvim
   - `winget install -e --id=JesseDuffield.lazygit`
 
