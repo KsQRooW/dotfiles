@@ -14,7 +14,7 @@
         {
           "foreground": "p:os",
           "style": "plain",
-          "template": "\ueb99 ",
+          "template": "\u256d\u2500\ueb99 ",
           "type": "os"
         },
         {
@@ -61,7 +61,7 @@
         {
           "style": "plain",
           "foreground": "p:closer",
-          "template": "\uf105",
+          "template": "\u2570\u2500\uf105",
           "type": "text"
         }
       ],
