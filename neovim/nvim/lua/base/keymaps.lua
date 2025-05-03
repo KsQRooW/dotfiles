@@ -88,3 +88,6 @@ map("n", "<leader>zm", "<cmd>NoNeckPain<cr>")
 
 -- format code
 map("n", "<leader><leader>", vim.lsp.buf.format)
+
+-- split window
+map("n", "<A-Right>", "<cmd>vsplit<cr>")
