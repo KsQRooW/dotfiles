@@ -3,7 +3,7 @@ return {
 	dependencies = { "nvim-lua/plenary.nvim" },
 	opts = {
 		keywords = {
-			TODO = { color = "todo", alt = { "todo" } },
+			TODO = { color = "todo" },
 		},
 		highlight = {
 			multiline = false,
