@@ -3,6 +3,9 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true -- use spaces instead of tab
 
+-- left column signs - just 2 signs
+vim.opt.signcolumn = "yes:2"
+
 -- smart indents
 vim.opt.smartindent = true
 
