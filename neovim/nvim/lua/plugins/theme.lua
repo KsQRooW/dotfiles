@@ -9,16 +9,29 @@
 -- }
 
 -- rose-pine
+-- return {
+-- 	"rose-pine/neovim",
+-- 	name = "rose-pine",
+-- 	priority = 1000,
+-- 	config = function()
+-- 		require("rose-pine").setup({
+-- 			styles = {
+-- 				italic = false,
+-- 			},
+-- 		})
+-- 		vim.cmd("colorscheme rose-pine")
+-- 	end,
+-- }
+
+-- kanagawa
 return {
-	"rose-pine/neovim",
-	name = "rose-pine",
+	"rebelot/kanagawa.nvim",
+	name = "kanagawa",
 	priority = 1000,
 	config = function()
-		require("rose-pine").setup({
-			styles = {
-				italic = false,
-			},
+		require("kanagawa").setup({
+			keywordStyle = { italic = false },
 		})
-		vim.cmd("colorscheme rose-pine")
+		vim.cmd("colorscheme kanagawa-wave")
 	end,
 }
