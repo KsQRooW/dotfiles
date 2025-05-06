@@ -52,6 +52,9 @@ map("n", "<leader>tt", "<cmd>TodoTelescope<CR>")
 -- code action
 map("n", "<leader>.", vim.lsp.buf.code_action, { desc = "LSP: Code Action" })
 
+-- rename variable
+map("n", "<leader>rn", vim.lsp.buf.rename)
+
 -- go to function definition
 map("n", "<leader>gd", "<cmd>Telescope lsp_definitions<CR>")
 
@@ -66,7 +69,7 @@ end)
 
 -- git stage/unstage file
 map("n", "<leader>hS", git.stage_buffer)
-map("n", "<leader>hR", git.reset_buffer_index)
+map("n", "<leader>hR", git.reset_buffer)
 
 -- git reset hunk
 map("n", "<leader>hr", git.reset_hunk)
@@ -91,3 +94,4 @@ map("n", "<leader><leader>", vim.lsp.buf.format)
 
 -- split window
 map("n", "<A-Right>", "<cmd>vsplit<cr>")
+map("n", "<A-Down>", "<cmd>split<cr>")
