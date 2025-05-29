@@ -13,6 +13,7 @@ return {
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"pyright",
+					"ruff",
 					"rust_analyzer",
 					"ast_grep", --dart, ts, go
 					"html",
