@@ -46,7 +46,6 @@ return {
 					command = python_bin and (python_bin .. (is_windows and "\\mypy.exe" or "/mypy")),
 					filetypes = { "python" },
 				}),
-				-- ruff configured in lsp.lua
 			},
 
 			-- autoformat on save
