@@ -5,7 +5,8 @@
     "closer": "p:os",
     "pink": "#F4B8E4",
     "lavender": "#BABBF1",
-    "blue": "#8CAAEE"
+    "blue": "#8CAAEE",
+    "yellow": "#e5c890"
   },
   "blocks": [
     {
@@ -32,6 +33,12 @@
           "style": "plain",
           "template": "\ue5fe {{ .Path }} ",
           "type": "path"
+        },
+        {
+          "foreground": "p:yellow",
+          "style": "plain",
+          "template": " {{ .Full }} ",
+          "type": "python"
         },
         {
           "foreground": "p:lavender",
