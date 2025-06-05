@@ -3,11 +3,13 @@ vim.g.mapleader = " " -- space and after command
 local map = vim.keymap.set
 local telescope = require("telescope.builtin")
 local git = require("gitsigns")
+local dap = require("dap")
+local dapui = require("dapui")
 
 -- telescope
-map("n", "<leader>f", telescope.find_files, { desc = "Find Files" })
+map("n", "<leader>ff", telescope.find_files, { desc = "Find Files" })
 map("n", "<leader>gg", telescope.live_grep, { desc = "Find by Grep" })
-map("n", "<leader>b", telescope.buffers, { desc = "Find Buffers" })
+map("n", "<leader>bb", telescope.buffers, { desc = "Find Buffers" })
 map("n", "<leader>gs", telescope.git_status, { desc = "Find Git Status Files" })
 
 -- neotree
@@ -64,7 +66,7 @@ map("n", "<leader>gr", "<cmd>Telescope lsp_references<CR>")
 -- git (un)stage current/selected hunk
 map("n", "<leader>hs", git.stage_hunk)
 map("v", "<leader>hs", function()
-	git.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+  git.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
 end)
 
 -- git stage/unstage file
@@ -74,13 +76,13 @@ map("n", "<leader>hR", git.reset_buffer)
 -- git reset hunk
 map("n", "<leader>hr", git.reset_hunk)
 map("v", "<leader>hr", function()
-	local gs = package.loaded.gitsigns
-	local start_line = vim.fn.line("v")
-	local end_line = vim.fn.line(".")
-	if start_line > end_line then
-		start_line, end_line = end_line, start_line
-	end
-	gs.reset_hunk({ start_line, end_line })
+  local gs = package.loaded.gitsigns
+  local start_line = vim.fn.line("v")
+  local end_line = vim.fn.line(".")
+  if start_line > end_line then
+    start_line, end_line = end_line, start_line
+  end
+  gs.reset_hunk({ start_line, end_line })
 end)
 
 -- lazygit
@@ -95,3 +97,7 @@ map("n", "<leader><leader>", vim.lsp.buf.format)
 -- split window
 map("n", "<A-Right>", "<cmd>vsplit<cr>")
 map("n", "<A-Down>", "<cmd>split<cr>")
+
+-- debug with dap
+map("n", "<leader>bo", dapui.toggle)
+map("n", "<leader>bp", dap.toggle_breakpoint)
