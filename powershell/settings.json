@@ -54,7 +54,7 @@
   ],
   "profiles": {
     "defaults": {
-      "backgroundImage": "%DOTFILES%\\desktop\\japan_street.png",
+      "backgroundImage": "%DOTFILES%\\images\\japan_street.png",
       "backgroundImageOpacity": 0.1,
       "font": {
         "cellHeight": "1.6",
