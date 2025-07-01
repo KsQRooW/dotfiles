@@ -20,10 +20,10 @@ vim.cmd([[autocmd FileType * setlocal formatoptions-=cro]])
 vim.opt.clipboard = "unnamedplus"
 
 -- search
-vim.opt.ignorecase = true -- ignore case if all characters in lower case
+vim.opt.ignorecase = true  -- ignore case if all characters in lower case
 vim.opt.joinspaces = false -- join multiple spaces in search
-vim.opt.smartcase = true -- when there is a one capital letter search for exact match
-vim.opt.showmatch = true -- highlight search instances
+vim.opt.smartcase = true   -- when there is a one capital letter search for exact match
+vim.opt.showmatch = true   -- highlight search instances
 
 -- window
 vim.opt.splitbelow = true -- Put new windows below current
