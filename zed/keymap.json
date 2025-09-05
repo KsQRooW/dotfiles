@@ -86,7 +86,8 @@
     "bindings": {
       "c": "git::ExpandCommitEditor",
       "space l g": "workspace::ToggleLeftDock",
-      "enter": ["workspace::SendKeystrokes", "enter enter"]
+      "p": "git::Pull",
+      "shift-p": "git::Push"
     }
   },
   {
