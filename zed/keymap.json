@@ -1,0 +1,111 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "ProjectPanel || OutlinePanel || GitPanel || CollabPanel || vim_mode == normal",
+    "bindings": {
+      // telescope like
+      "space f f": "file_finder::Toggle",
+      "space f s": "project_symbols::Toggle",
+      "space g g": "workspace::NewSearch",
+      // "space b b": "don't exist"
+      // "space g s": "don't exist"
+
+      // neotree like
+      "space n": "project_panel::ToggleFocus",
+      "space o": "outline::Toggle",
+
+      // comments
+      "space /": "vim::ToggleComments",
+
+      // next/past half page and centered cursor
+      "ctrl-d": ["workspace::SendKeystrokes", "ctrl-d z z"],
+      "ctrl-u": ["workspace::SendKeystrokes", "ctrl-u z z"],
+
+      // delete without saving into buffer
+      "space d": ["workspace::SendKeystrokes", "\" _ d"],
+
+      // show error popup
+      "space e": "editor::Hover",
+
+      // show all errors
+      "space x x": "diagnostics::Deploy",
+
+      // changing a word throughout the file
+      // "space s": "can't do that"
+
+      // all todo
+      // "space t t": "don't exist"
+
+      // code action
+      "space .": "editor::ToggleCodeActions",
+
+      // rename symbon
+      "space r n": "editor::Rename",
+
+      // lsp
+      "space g d": "editor::GoToDefinition",
+      "space g i": "editor::GoToImplementation",
+      "space g r": "editor::FindAllReferences",
+
+      // git
+      "space h s": "git::ToggleStaged",
+      // not clear how to stage/unstage file
+      // "space h shift-s": "git::StageFile"
+      // "space h shift-r": "git::UnstageFile"
+      "space l g": "git_panel::ToggleFocus",
+
+      // zen mode
+      "space z m": "workspace::ToggleCenteredLayout",
+
+      // format code
+      "space space": "editor::Format"
+    }
+  },
+  {
+    "context": "ProjectPanel || OutlinePanel || GitPanel || CollabPanel || vim_mode == visual",
+    "bindings": {
+      // comments
+      "space /": "vim::ToggleComments",
+
+      // telescope
+      "space g g": "workspace::NewSearch"
+
+      // git
+      // not clear how to stage range of rows
+      // "space h s": "git::StageRange"
+    }
+  },
+  {
+    "context": "GitPanel",
+    "bindings": {
+      "c": "git::ExpandCommitEditor",
+      "space l g": "workspace::ToggleLeftDock",
+      "enter": ["workspace::SendKeystrokes", "enter enter"]
+    }
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "a": "project_panel::NewFile",
+      "d": "project_panel::Delete",
+      "r": "project_panel::Rename",
+      "space n": "workspace::ToggleLeftDock",
+      // TODO: need to think how to open file and close ProjectPanel
+      // "enter": ["workspace::SendKeystrokes", "enter space n"],
+      "ctrl-d": ["workspace::SendKeystrokes", "down down down down down"],
+      "ctrl-u": ["workspace::SendKeystrokes", "up up up up up"]
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-`": "workspace::ToggleBottomDock"
+    }
+  }
+]
