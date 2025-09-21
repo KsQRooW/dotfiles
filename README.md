@@ -3,7 +3,7 @@
 - Создание переменных окружения
   ```powershell
   [System.Environment]::SetEnvironmentVariable("DOTFILES", "D:\dotfiles", "User")
-  [System.Environment]::SetEnvironmentVariable("XDG_CONFIG_HOME", "D:\dotfiles\neovim", "User")
+  [System.Environment]::SetEnvironmentVariable("XDG_CONFIG_HOME", "D:\dotfiles", "User")
   ```
 
 # Git
