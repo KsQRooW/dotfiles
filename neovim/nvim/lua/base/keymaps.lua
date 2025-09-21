@@ -66,7 +66,7 @@ map("n", "<leader>o", "<cmd>Telescope lsp_document_symbols<CR>")
 -- git (un)stage current/selected hunk
 map("n", "<leader>hs", git.stage_hunk)
 map("v", "<leader>hs", function()
-    git.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+  git.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
 end)
 
 -- git stage/unstage file
@@ -76,13 +76,13 @@ map("n", "<leader>hR", git.reset_buffer)
 -- git reset hunk
 map("n", "<leader>hr", git.reset_hunk)
 map("v", "<leader>hr", function()
-    local gs = package.loaded.gitsigns
-    local start_line = vim.fn.line("v")
-    local end_line = vim.fn.line(".")
-    if start_line > end_line then
-        start_line, end_line = end_line, start_line
-    end
-    gs.reset_hunk({ start_line, end_line })
+  local gs = package.loaded.gitsigns
+  local start_line = vim.fn.line("v")
+  local end_line = vim.fn.line(".")
+  if start_line > end_line then
+    start_line, end_line = end_line, start_line
+  end
+  gs.reset_hunk({ start_line, end_line })
 end)
 
 -- lazygit
