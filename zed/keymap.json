@@ -7,8 +7,17 @@
 // from the command palette.
 [
   {
+    "bindings": {
+      "ctrl-c": "editor::Copy",
+      "ctrl-v": "editor::Paste"
+    }
+  },
+  {
     "context": "ProjectPanel || OutlinePanel || GitPanel || CollabPanel || vim_mode == normal",
     "bindings": {
+      // saving with hot reload for flutter
+      "ctrl-s": ["workspace::SendKeystrokes", "ctrl-` r ctrl-1"],
+
       // telescope like
       "space f f": "file_finder::Toggle",
       "space f s": "project_symbols::Toggle",
@@ -55,10 +64,13 @@
 
       // git
       "space h s": "git::ToggleStaged",
+      "space h r": "git::Restore",
       // not clear how to stage/unstage file
       // "space h shift-s": "git::StageFile"
       // "space h shift-r": "git::UnstageFile"
-      "space l g": "git_panel::ToggleFocus",
+      // "space l g": "git_panel::ToggleFocus",
+      "_ space l g": ["task::Spawn", { "task_name": "Lazygit" }],
+      "space l g": ["workspace::SendKeystrokes", "_ space l g shift-escape"],
 
       // zen mode
       "space z m": "workspace::ToggleCenteredLayout",
@@ -106,7 +118,8 @@
   {
     "context": "Terminal",
     "bindings": {
-      "ctrl-`": "workspace::ToggleBottomDock"
+      "ctrl-`": "workspace::ToggleBottomDock",
+      "ctrl-1": "editor::ToggleFocus"
     }
   }
 ]
