@@ -13,6 +13,9 @@ return {
           hide_dotfiles = false,
           hide_gitignored = false,
         },
+        follow_current_file = {
+          enabled = true,
+        },
       },
 
       -- close neo-tree when opening a file.

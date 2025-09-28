@@ -5,12 +5,15 @@ local telescope = require("telescope.builtin")
 local git = require("gitsigns")
 local dap = require("dap")
 local dapui = require("dapui")
+local iron = require("iron.core")
 
 -- telescope
 map("n", "<leader>ff", telescope.find_files, { desc = "Find Files" })
 map("n", "<leader>gg", telescope.live_grep, { desc = "Find by Grep" })
 map("n", "<leader>bb", telescope.buffers, { desc = "Find Buffers" })
 map("n", "<leader>gs", telescope.git_status, { desc = "Find Git Status Files" })
+-- files symbols
+map("n", "<leader>fo", "<cmd>Telescope lsp_document_symbols<CR>")
 
 -- neotree
 map("n", "<leader>n", "<cmd>Neotree toggle<CR>", { desc = "Toggle Neo-tree" })
@@ -60,9 +63,6 @@ map("n", "<leader>gd", "<cmd>Telescope lsp_definitions<CR>")
 -- go to function references
 map("n", "<leader>gr", "<cmd>Telescope lsp_references<CR>")
 
--- files symbols
-map("n", "<leader>o", "<cmd>Telescope lsp_document_symbols<CR>")
-
 -- git (un)stage current/selected hunk
 map("n", "<leader>hs", git.stage_hunk)
 map("v", "<leader>hs", function()
@@ -100,5 +100,43 @@ map("n", "<A-Down>", "<cmd>split<cr>")
 
 -- debug with dap
 map("n", "<leader>bo", dapui.toggle)
-map("n", "<leader>bc", dap.continue)
 map("n", "<leader>bp", dap.toggle_breakpoint)
+map("n", "<leader>bc", function()
+  dapui.float_element("console", { position = "center", height = 20, width = 120 })
+end)
+map("n", "<leader>bd", function()
+  dapui.float_element("repl", { position = "center", height = 20, width = 120 })
+end)
+map("n", "<F5>", dap.continue)
+
+-- repl
+iron.setup({
+  keymaps = {
+    toggle_repl = "<leader>rr", -- toggles the repl open and closed.
+    -- If repl_open_command is a table as above, then the following keymaps are
+    -- available
+    -- toggle_repl_with_cmd_1 = "<leader>rv",
+    -- toggle_repl_with_cmd_2 = "<leader>rh",
+    restart_repl = "<leader>rR", -- calls `IronRestart` to restart the repl
+    -- send_motion = "<leader>rsc",
+    visual_send = "<leader>rc",
+    send_file = "<leader>rf",
+    send_line = "<leader>rl",
+    send_paragraph = "<leader>rp",
+    send_until_cursor = "<leader>ru",
+    -- send_mark = "<leader>sm",
+    send_code_block = "<leader>rb",
+    send_code_block_and_move = "<leader>rm",
+    -- mark_motion = "<leader>mc",
+    -- mark_visual = "<leader>mc",
+    -- remove_mark = "<leader>md",
+    cr = "<leader>r<cr>",
+    interrupt = "<leader>ri",
+    exit = "<leader>rq",
+    clear = "<leader>cl",
+  },
+})
+
+-- obsidian
+map("n", "<leader>of", "<cmd>ObsidianQuickSwitch<CR>")
+map("n", "<leader>ow", "<cmd>ObsidianWorkspace<CR>")

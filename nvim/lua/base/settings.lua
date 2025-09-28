@@ -3,6 +3,24 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true -- use spaces instead of tab
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "python",
+  callback = function()
+    vim.bo.shiftwidth = 4
+    vim.bo.tabstop = 4
+    vim.bo.expandtab = 4
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "groovy",
+  callback = function()
+    vim.bo.shiftwidth = 4
+    vim.bo.tabstop = 4
+    vim.bo.expandtab = 4
+  end,
+})
+
 -- left column signs - just 2 signs
 vim.opt.signcolumn = "yes:2"
 
@@ -32,3 +50,6 @@ vim.opt.splitright = true -- Put new vertical splits to right
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
 vim.opt.whichwrap:append("<>[]hl")
+
+-- for obsidian and for hiding content if it possible
+vim.opt.conceallevel = 2
