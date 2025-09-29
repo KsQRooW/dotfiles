@@ -1,6 +1,9 @@
 vim.g.mapleader = " " -- space and after command
 
 local map = vim.keymap.set
+
+local utils = require("base.utils")
+
 local telescope = require("telescope.builtin")
 local git = require("gitsigns")
 local dap = require("dap")
@@ -14,7 +17,8 @@ map("n", "<leader>gg", telescope.live_grep, { desc = "Find by Grep" })
 map("n", "<leader>bb", telescope.buffers, { desc = "Find Buffers" })
 map("n", "<leader>gs", telescope.git_status, { desc = "Find Git Status Files" })
 -- files symbols
-map("n", "<leader>fo", "<cmd>Telescope lsp_document_symbols<CR>")
+-- map("n", "<leader>fo", "<cmd>Telescope lsp_document_symbols<CR>")
+map("n", "<leader>fo", utils.custom_telescope_lsp_document_symbols)
 
 -- neotree
 map("n", "<leader>n", "<cmd>Neotree toggle<CR>", { desc = "Toggle Neo-tree" })
