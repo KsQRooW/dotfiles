@@ -8,7 +8,7 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.bo.shiftwidth = 4
     vim.bo.tabstop = 4
-    vim.bo.expandtab = 4
+    vim.bo.expandtab = true
   end,
 })
 
@@ -17,7 +17,7 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.bo.shiftwidth = 4
     vim.bo.tabstop = 4
-    vim.bo.expandtab = 4
+    vim.bo.expandtab = true
   end,
 })
 
@@ -38,10 +38,10 @@ vim.cmd([[autocmd FileType * setlocal formatoptions-=cro]])
 vim.opt.clipboard = "unnamedplus"
 
 -- search
-vim.opt.ignorecase = true  -- ignore case if all characters in lower case
+vim.opt.ignorecase = true -- ignore case if all characters in lower case
 vim.opt.joinspaces = false -- join multiple spaces in search
-vim.opt.smartcase = true   -- when there is a one capital letter search for exact match
-vim.opt.showmatch = true   -- highlight search instances
+vim.opt.smartcase = true -- when there is a one capital letter search for exact match
+vim.opt.showmatch = true -- highlight search instances
 
 -- window
 vim.opt.splitbelow = true -- Put new windows below current
