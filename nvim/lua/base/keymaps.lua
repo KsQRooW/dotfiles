@@ -6,6 +6,7 @@ local git = require("gitsigns")
 local dap = require("dap")
 local dapui = require("dapui")
 local iron = require("iron.core")
+local conform = require("conform")
 
 -- telescope
 map("n", "<leader>ff", telescope.find_files, { desc = "Find Files" })
@@ -92,7 +93,9 @@ map("n", "<leader>lg", "<cmd>LazyGit<cr>")
 map("n", "<leader>zm", "<cmd>NoNeckPain<cr>")
 
 -- format code
-map("n", "<leader><leader>", vim.lsp.buf.format)
+map({ "n", "v" }, "<leader><leader>", function()
+  conform.format({ async = true })
+end)
 
 -- split window
 map("n", "<A-Right>", "<cmd>vsplit<cr>")
