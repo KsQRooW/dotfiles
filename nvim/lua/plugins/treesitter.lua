@@ -25,6 +25,8 @@ return {
         "toml",
         "yaml",
         "xml",
+        "vim",
+        "regex",
       },
       highlight = {
         enable = true,
