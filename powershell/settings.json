@@ -29,9 +29,8 @@
   "copyFormatting": "none",
   "copyOnSelect": false,
   "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-  "useAcrylicInTabRow": true,
+  "useAcrylicInTabRow": false,
   "newTabPosition": "afterCurrentTab",
-  "compatibility.enableUnfocusedAcrylic": true,
   "keybindings": [
     {
       "id": "User.copy.644BA8F2",
