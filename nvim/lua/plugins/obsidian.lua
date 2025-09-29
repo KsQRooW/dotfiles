@@ -9,6 +9,10 @@ return {
         name = "notes",
         path = vim.env.DOTFILES .. "/notes",
       },
+      {
+        name = "fogio",
+        path = "D:\\obsidian-vaults\\fogio-notes",
+      },
     },
   },
 }
