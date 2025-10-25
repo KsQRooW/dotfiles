@@ -19,9 +19,8 @@ return {
       json = { "prettier" },
       javascript = { "prettier" },
     },
-    format_on_save = {
-      -- These options will be passed to conform.format()
-      timeout_ms = 500, -- 10 sec
+    format_after_save = {
+      timeout_ms = 5000,
       lsp_format = "fallback",
     },
   },
