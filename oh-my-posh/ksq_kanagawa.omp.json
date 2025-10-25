@@ -1,31 +1,30 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "palette": {
-    "os": "#ACB0BE",
-    "closer": "p:os",
-    "pink": "#F4B8E4",
-    "lavender": "#BABBF1",
-    "blue": "#8CAAEE",
-    "yellow": "#e5c890"
+    "fuji_white": "#DCD7BA",
+    "sakura_pink": "#D27E99",
+    "spring_blue": "#7FB4CA",
+    "wave_aqua": "#7AA89F",
+    "carp_yellow": "#E6C384"
   },
   "blocks": [
     {
       "alignment": "left",
       "segments": [
         {
-          "foreground": "p:os",
+          "foreground": "p:fuji_white",
           "style": "plain",
           "template": "\u256d\u2500\ueb99 ",
           "type": "os"
         },
         {
-          "foreground": "p:blue",
+          "foreground": "p:wave_aqua",
           "style": "plain",
           "template": " {{ .UserName }} ",
           "type": "session"
         },
         {
-          "foreground": "p:pink",
+          "foreground": "p:sakura_pink",
           "properties": {
             "home_icon": "~",
             "style": "full"
@@ -35,13 +34,13 @@
           "type": "path"
         },
         {
-          "foreground": "p:yellow",
+          "foreground": "p:carp_yellow",
           "style": "plain",
           "template": " {{ .Full }} ",
           "type": "python"
         },
         {
-          "foreground": "p:lavender",
+          "foreground": "p:spring_blue",
           "properties": {
             "fetch_stash_count": true,
             "fetch_status": false,
@@ -67,7 +66,7 @@
       "segments": [
         {
           "style": "plain",
-          "foreground": "p:closer",
+          "foreground": "p:fuji_white",
           "template": "\u2570\u2500\uf105",
           "type": "text"
         }
