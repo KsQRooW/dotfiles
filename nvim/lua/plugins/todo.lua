@@ -6,8 +6,8 @@ return {
       TODO = { color = "todo" },
     },
     highlight = {
-      multiline = false,
-      multiline_pattern = "^.",
+      multiline = true,
+      multiline_pattern = [[^  .]],
       multiline_context = 10,
       before = "",
       keyword = "fg",
