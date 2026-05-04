@@ -3,7 +3,7 @@ id: mahjong
 aliases:
   - mahjong
 tags:
-  - points
+  - mahjong
 ---
 
 # Points
