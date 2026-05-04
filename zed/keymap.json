@@ -9,8 +9,8 @@
   {
     "bindings": {
       "ctrl-c": "editor::Copy",
-      "ctrl-v": "editor::Paste"
-    }
+      "ctrl-v": "editor::Paste",
+    },
   },
   {
     "context": "ProjectPanel || OutlinePanel || GitPanel || CollabPanel || vim_mode == normal",
@@ -20,6 +20,7 @@
 
       // telescope like
       "space f f": "file_finder::Toggle",
+      "space f o": "outline::Toggle",
       "space f s": "project_symbols::Toggle",
       "space g g": "workspace::NewSearch",
       // "space b b": "don't exist"
@@ -27,7 +28,6 @@
 
       // neotree like
       "space n": "project_panel::ToggleFocus",
-      "space o": "outline::Toggle",
 
       // comments
       "space /": "vim::ToggleComments",
@@ -76,8 +76,8 @@
       "space z m": "workspace::ToggleCenteredLayout",
 
       // format code
-      "space space": "editor::Format"
-    }
+      "space space": "editor::Format",
+    },
   },
   {
     "context": "ProjectPanel || OutlinePanel || GitPanel || CollabPanel || vim_mode == visual",
@@ -86,12 +86,12 @@
       "space /": "vim::ToggleComments",
 
       // telescope
-      "space g g": "workspace::NewSearch"
+      "space g g": "workspace::NewSearch",
 
       // git
       // not clear how to stage range of rows
       // "space h s": "git::StageRange"
-    }
+    },
   },
   {
     "context": "GitPanel",
@@ -99,8 +99,8 @@
       "c": "git::ExpandCommitEditor",
       "space l g": "workspace::ToggleLeftDock",
       "p": "git::Pull",
-      "shift-p": "git::Push"
-    }
+      "shift-p": "git::Push",
+    },
   },
   {
     "context": "ProjectPanel && not_editing",
@@ -112,14 +112,14 @@
       // TODO: need to think how to open file and close ProjectPanel
       // "enter": ["workspace::SendKeystrokes", "enter space n"],
       "ctrl-d": ["workspace::SendKeystrokes", "down down down down down"],
-      "ctrl-u": ["workspace::SendKeystrokes", "up up up up up"]
-    }
+      "ctrl-u": ["workspace::SendKeystrokes", "up up up up up"],
+    },
   },
   {
     "context": "Terminal",
     "bindings": {
       "ctrl-`": "workspace::ToggleBottomDock",
-      "ctrl-1": "editor::ToggleFocus"
-    }
-  }
+      "ctrl-1": "editor::ToggleFocus",
+    },
+  },
 ]
