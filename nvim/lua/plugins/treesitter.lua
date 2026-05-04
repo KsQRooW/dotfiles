@@ -21,6 +21,7 @@ return {
         "jq",
         "lua",
         "markdown",
+        "markdown_inline",
         "sql",
         "toml",
         "yaml",
