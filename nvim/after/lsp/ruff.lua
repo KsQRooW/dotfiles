@@ -1,6 +1,37 @@
+-- local config = {}
+--
+-- if not vim.uv.fs_stat("pyproject.toml") then
+--   config.init_options = {
+--     settings = {
+--       lineLength = 120,
+--       lint = {
+--         select = { "ALL" },
+--         ignore = {
+--           "ANN",
+--           "D100",
+--           "D104",
+--           "D415",
+--           "TD",
+--           "FIX",
+--           "RUF001",
+--           "RUF002",
+--           "RUF003",
+--           "DTZ",
+--         },
+--       },
+--     },
+--   }
+-- end
+--
+-- vim.lsp.config("ruff", config)
+
+-- vim.lsp.enable("ruff")
+
 local config = {}
 
-if not vim.uv.fs_stat("pyproject.toml") then
+local root = vim.fn.getcwd()
+
+if not vim.uv.fs_stat(root .. "/pyproject.toml") then
   config.init_options = {
     settings = {
       lineLength = 120,
@@ -23,6 +54,4 @@ if not vim.uv.fs_stat("pyproject.toml") then
   }
 end
 
-vim.lsp.config("ruff", config)
-
--- vim.lsp.enable("ruff")
+return config
