@@ -19,6 +19,14 @@ map("n", "<leader>gs", telescope.git_status, { desc = "Find Git Status Files" })
 -- files symbols
 -- map("n", "<leader>fo", "<cmd>Telescope lsp_document_symbols<CR>")
 map("n", "<leader>fo", utils.custom_telescope_lsp_document_symbols)
+map("n", "<leader>fo", "<cmd>Namu symbols<cr>", {
+  desc = "Jump to LSP symbol",
+  silent = true,
+})
+map("n", "<leader>fw", "<cmd>Namu workspace<cr>", {
+  desc = "LSP Symbols - Workspace",
+  silent = true,
+})
 
 -- neotree
 map("n", "<leader>n", "<cmd>Neotree toggle<CR>", { desc = "Toggle Neo-tree" })
@@ -46,6 +54,13 @@ map({ "n", "v" }, "<leader>d", [["_d]])
 
 -- show error popup
 map("n", "<leader>e", vim.diagnostic.open_float)
+map("n", "<leader>td", function()
+  if vim.diagnostic.is_enabled() then
+    vim.diagnostic.enable(false)
+  else
+    vim.diagnostic.enable(true)
+  end
+end, { desc = "Toggle diagnistics" })
 
 -- show all errors
 map("n", "<leader>xx", "<cmd>Telescope diagnostics severity=ERROR<CR>")
@@ -57,7 +72,7 @@ map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 map("n", "<leader>tt", "<cmd>TodoTelescope<CR>")
 
 -- code action
-map("n", "<leader>.", vim.lsp.buf.code_action, { desc = "LSP: Code Action" })
+map({ "n", "v" }, "<leader>.", vim.lsp.buf.code_action, { desc = "LSP: Code Action" })
 
 -- rename variable
 map("n", "<leader>rn", vim.lsp.buf.rename)
@@ -115,6 +130,7 @@ map("n", "<leader>bd", function()
   dapui.float_element("repl", { position = "center", height = 20, width = 120 })
 end)
 map("n", "<F5>", dap.continue)
+map("n", "<leader>bq", dap.disconnect)
 
 -- repl
 iron.setup({
@@ -147,3 +163,4 @@ iron.setup({
 -- obsidian
 map("n", "<leader>of", "<cmd>ObsidianQuickSwitch<CR>")
 map("n", "<leader>ow", "<cmd>ObsidianWorkspace<CR>")
+map("n", "<leader>ot", "<cmd>ObsidianTags<CR>")
