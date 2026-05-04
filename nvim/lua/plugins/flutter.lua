@@ -15,12 +15,17 @@ return {
         enabled = true,
       },
       lsp = {
-        color = {
-          enabled = true,
-          foreground = false,
-          background = true,
+        settings = {
+          analysisExcludedFolders = {},
         },
       },
+      -- lsp = {
+      --   color = {
+      --     -- enabled = true,
+      --     -- foreground = false,
+      --     -- background = true,
+      --   },
+      -- },
     })
   end,
 }
